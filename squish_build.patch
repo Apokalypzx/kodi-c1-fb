@@ -1,0 +1,19 @@
+--- Makefile	2016-03-20 23:47:21.566715417 -0700
++++ Makefile.new	2016-03-20 23:48:17.407006873 -0700
+@@ -18,7 +18,6 @@
+ SOURCE=$(ROOT_DIR)/src
+ 
+ DYLIB=$(PLATFORM)/libsquish.a
+-
+ all: .installed-$(PLATFORM)
+ 
+ $(PLATFORM):
+@@ -28,7 +27,7 @@
+ 	@exit 1
+ endif
+ 	-rm -rf $(PLATFORM)/*; mkdir -p $(PLATFORM)
+-	cd $(PLATFORM); cp -a $(SOURCE)/* .
++	cd $(PLATFORM); cp -r $(SOURCE)/* .
+ 	cd $(PLATFORM); sed "s|@PREFIX@|$(PREFIX)|" config.in > config
+ 	cd $(PLATFORM); mkdir -p $(PREFIX)/include; mkdir -p $(PREFIX)/lib/pkgconfig
+ 

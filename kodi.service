@@ -6,8 +6,16 @@ After = remote-fs.target
 User = kodi
 Group = kodi
 Type = simple
+PermissionsStartOnly = true
+ExecStartPre = /usr/bin/sh -c "echo 0 > /sys/class/vtconsole/vtcon1/bind" 
+ExecStartPre = /usr/bin/sh -c "echo 0 > /sys/class/graphics/fbcon/cursor_blink" 
+ExecStartPre = /usr/bin/sh -c "dmesg -D" 
 ExecStart = /usr/bin/kodi
+ExecStopPost = /usr/bin/sh -c "dmesg -E"
+ExecStopPost = /usr/bin/sh -c "echo 1 > /sys/class/graphics/fbcon/cursor_blink"
+ExecStopPost = /usr/bin/sh -c "echo 1 > /sys/class/vtconsole/vtcon1/bind"
 Restart = on-failure
 
 [Install]
-WantedBy = multi-user.target
+WantedBy = multi-user.target 
+
